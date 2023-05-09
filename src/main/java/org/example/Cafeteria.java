@@ -7,11 +7,13 @@ public class Cafeteria {
     private String direccion;
     private ArrayList<String> redesSociales;
     private ArrayList<Cafe> listaDeCafes;
+    private ArrayList<Kuchen> listaDeKuchen;
     public Cafeteria(String nombre, String direccion) {
         this.nombre = nombre;
         this.direccion = direccion;
         this.redesSociales = new ArrayList<>();
         this.listaDeCafes = new ArrayList<>();
+        this.listaDeKuchen = new ArrayList<>();
     }
     public String getNombre() {
         return nombre;
@@ -44,14 +46,26 @@ public class Cafeteria {
     public void setListaDeCafes(ArrayList<Cafe> listaDeCafes) {
         this.listaDeCafes = listaDeCafes;
     }
+    public ArrayList<Kuchen> getListaDeKuchen() {
+        return listaDeKuchen;
+    }
+    public void setListaDeKuchen(ArrayList<Kuchen> listaDeKuchen) {
+        this.listaDeKuchen = listaDeKuchen;
+    }
     public void agregarCafe(Cafe cafe){
         this.listaDeCafes.add(cafe);
+    }
+    public void agregarKuchen(Kuchen kuchen){
+        this.listaDeKuchen.add(kuchen);
     }
     public void agregarRedSocial(String redSocial){
         this.redesSociales.add(redSocial);
     }
     public void eliminarCafe(Cafe cafe){
         this.listaDeCafes.remove(cafe);
+    }
+    public void eliminarKuchen(Kuchen kuchen){
+        this.listaDeKuchen.remove(kuchen);
     }
     public Cafe buscarCafePorTamano(String tamaño) {
         for (Cafe cafe : listaDeCafes) {
@@ -61,15 +75,22 @@ public class Cafeteria {
         }
         return null;
     }
-    public String toString() {
-        String listaCafes = "";
-        for (Cafe cafe : this.listaDeCafes) {
-            listaCafes += cafe.toString() + "\n";
+    public Kuchen buscarKuchenPorNombre(String nombre) {
+        for (Kuchen kuchen : listaDeKuchen) {
+            if (kuchen.getNombre() == nombre) {
+                return kuchen;
+            }
         }
+        return null;
+    }
 
-        return "Cafeteria: " + this.nombre + "\n" +
-                "Direccion: " + this.direccion + "\n" +
-                "Redes sociales: " + this.redesSociales + "\n" +
-                "Cafes a la venta:\n" + listaCafes;
+    public String toString() {
+        return "Cafeteria{" +
+                "nombre='" + nombre + '\'' +
+                ", direccion='" + direccion + '\'' +
+                ", redesSociales=" + redesSociales +
+                ", listaDeCafes=" + listaDeCafes +
+                ", listaDeKuchen=" + listaDeKuchen +
+                '}';
     }
 }

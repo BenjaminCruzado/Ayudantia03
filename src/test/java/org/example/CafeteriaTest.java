@@ -96,6 +96,34 @@ class CafeteriaTest {
         ArrayList<Cafe> listaDeCafes = cafeteria.getListaDeCafes();
         assertEquals(nuevaListaDeCafes, listaDeCafes);
     }
+    @Test
+    void testGetListaDeKuchen() {
+        Cafeteria cafeteria = new Cafeteria("Mi Cafetería", "Los Ganaderos 03701");
+
+        Kuchen kuchen1 = new Kuchen("kuchen de manzana", 20, "manzana", 20);
+        Kuchen kuchen2 = new Kuchen("kuchen de platano", 30, "platano", 30);
+        Kuchen kuchen3 = new Kuchen("kuchen de frambuesa", 40, "frambuesa", 40);
+
+        cafeteria.agregarKuchen(kuchen1);
+        cafeteria.agregarKuchen(kuchen2);
+        cafeteria.agregarKuchen(kuchen3);
+
+        ArrayList<Kuchen> listaDeKuchen = cafeteria.getListaDeKuchen();
+        assertEquals(3, listaDeKuchen.size());
+    }
+
+    @Test
+    void testSetListaDeKuchen() {
+        Cafeteria cafeteria = new Cafeteria("Cafeteria1", "Direccion1");
+        ArrayList<Kuchen> nuevaListaDeKuchen = new ArrayList<>();
+        nuevaListaDeKuchen.add(new Kuchen("kuchen de manzana", 20, "manzana", 20));
+        nuevaListaDeKuchen.add(new Kuchen("kuchen de platano", 30, "platano", 30));
+
+        cafeteria.setListaDeKuchen(nuevaListaDeKuchen);
+
+        ArrayList<Kuchen> listaDeKuchen = cafeteria.getListaDeKuchen();
+        assertEquals(nuevaListaDeKuchen, listaDeKuchen);
+    }
 
     @Test
     void testAgregarCafe() {
@@ -103,6 +131,13 @@ class CafeteriaTest {
         Cafe cafe = new Cafe(10, 2.5, "grande");
         cafeteria.agregarCafe(cafe);
         assertEquals(cafe, cafeteria.getListaDeCafes().get(0));
+    }
+    @Test
+    void testAgregarKuchen() {
+        Cafeteria cafeteria = new Cafeteria("Mi Cafetería", "Calle 123");
+        Kuchen kuchen = new Kuchen("kuchen de platano", 30, "platano", 30);
+        cafeteria.agregarKuchen(kuchen);
+        assertEquals(kuchen, cafeteria.getListaDeCafes().get(0));
     }
 
     @Test
@@ -129,9 +164,31 @@ class CafeteriaTest {
         assertEquals(1, listaDeCafes.size());
         assertEquals(cafe2, listaDeCafes.get(0));
     }
+    @Test
+    void testEliminarKuchen() {
+        Kuchen kuchen1 = new Kuchen("kuchen de manzana", 20, "manzana", 20);
+        Kuchen kuchen2 = new Kuchen("kuchen de platano", 30, "platano", 30);
+        Cafeteria cafeteria = new Cafeteria("Starbucks", "123 Main St");
+        cafeteria.agregarKuchen(kuchen1);
+        cafeteria.agregarKuchen(kuchen2);
+        cafeteria.eliminarKuchen(kuchen1);
+        ArrayList<Kuchen> listaDeKuchen = cafeteria.getListaDeKuchen();
+        assertEquals(1, listaDeKuchen.size());
+        assertEquals(kuchen2, listaDeKuchen.get(0));
+    }
 
     @Test
-    void testBuscarCafePorTamano() {
+    void testBuscarKuchenPorNombre() {
+        Kuchen kuchen1 = new Kuchen("kuchen de manzana", 20, "manzana", 20);
+        Kuchen kuchen2 = new Kuchen("kuchen de platano", 30, "platano", 30);
+        Cafeteria cafeteria = new Cafeteria("Starbucks", "123");
+        cafeteria.agregarKuchen(kuchen1);
+        cafeteria.agregarKuchen(kuchen2);
+        Kuchen kuchenEncontrado = cafeteria.buscarKuchenPorNombre("kuchen de manzana");
+        assertEquals(kuchen1, kuchenEncontrado);
+    }
+    @Test
+    void testBuscarCafePorTamaño() {
         Cafe cafe1 = new Cafe(10, 100, "grande");
         Cafe cafe2 = new Cafe(20, 200, "mediano");
         Cafeteria cafeteria = new Cafeteria("Starbucks", "123");
@@ -140,6 +197,7 @@ class CafeteriaTest {
         Cafe cafeEncontrado = cafeteria.buscarCafePorTamano("grande");
         assertEquals(cafe1, cafeEncontrado);
     }
+
 
     @Test
     void testToString() {
@@ -152,13 +210,7 @@ class CafeteriaTest {
         elMormon.agregarCafe(cafe3);
         elMormon.agregarRedSocial("Instagram: Cafeteria_El_Mormon");
         elMormon.agregarRedSocial("Facebook: Cafeteria EL Mormon");
-        String esperado = "Cafeteria: El Mormón\n" +
-                "Direccion: Los ganaderos 03701\n" +
-                "Redes sociales: [Instagram: Cafeteria_El_Mormon, Facebook: Cafeteria EL Mormon]\n" +
-                "Cafes a la venta:\n" +
-                "Café{gramosDeCafe=15.0, mililitrosDeAgua=150.0, tamaño='Pequeño'}\n" +
-                "Café{gramosDeCafe=25.0, mililitrosDeAgua=250.0, tamaño='Mediano'}\n" +
-                "Café{gramosDeCafe=35.0, mililitrosDeAgua=350.0, tamaño='Grande'}\n";
+        String esperado = "Cafeteria{nombre='El Mormón', direccion='Los ganaderos 03701', redesSociales=[Instagram: Cafeteria_El_Mormon, Facebook: Cafeteria EL Mormon], listaDeCafes=[Café{gramosDeCafe=15.0, mililitrosDeAgua=150.0, tamaño='Pequeño'}, Café{gramosDeCafe=25.0, mililitrosDeAgua=250.0, tamaño='Mediano'}, Café{gramosDeCafe=35.0, mililitrosDeAgua=350.0, tamaño='Grande'}], listaDeKuchen=[]}";
         assertEquals(esperado, elMormon.toString());
     }
 }

@@ -11,9 +11,17 @@ public class Main {
         Cafe cafe2 = new Cafe(25, 250, "Mediano");
         Cafe cafe3 = new Cafe(35, 350, "Grande");
 
+        Kuchen kuchen1 = new Kuchen("kuchen de manzana", 20, "manzana", 20);
+        Kuchen kuchen2 = new Kuchen("kuchen de platano", 30, "platano", 30);
+        Kuchen kuchen3 = new Kuchen("kuchen de frambuesa", 40, "frambuesa", 40);
+
         elMormon.agregarCafe(cafe1);
         elMormon.agregarCafe(cafe2);
         elMormon.agregarCafe(cafe3);
+
+        elMormon.agregarKuchen(kuchen1);
+        elMormon.agregarKuchen(kuchen2);
+        elMormon.agregarKuchen(kuchen3);
 
         elMormon.agregarRedSocial("Instagram: Cafeteria_El_Mormon");
         elMormon.agregarRedSocial("Facebook: Cafeteria EL Mormon");
